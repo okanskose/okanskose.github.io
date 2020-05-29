@@ -11,7 +11,6 @@ module.exports = merge(common, {
     path: path.join(__dirname, 'dist'),
     filename: "bundle.[hash].js",
   },
-  devtool: 'source-map',
   plugins: [
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin(),
