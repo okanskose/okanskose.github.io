@@ -262,12 +262,7 @@ export default {
             media: [{
                 type: 'img',
                 description: 'Installation at Luminale 2014 in middle of the Frankfurt town square',
-                filename: './media/morgen-ist-jetzt/hemisphere-1.jpg',
-                isThumbnail: false
-            }, {
-                type: 'img',
-                description: 'Installation at Luminale 2014 in middle of the Frankfurt town square',
-                filename: './media/morgen-ist-jetzt/hemisphere-1.jpg',
+                filename: './media/morgen-ist-jetzt/hemisphere-2.jpg',
                 isThumbnail: false
             }, {
                 type: 'img',
