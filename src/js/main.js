@@ -1,3 +1,5 @@
+import './../css/style.css'
+
 import content from './content.js'
 import * as templates from './templates.js'
 import Modal from './modal.js'

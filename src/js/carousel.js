@@ -1,3 +1,5 @@
+import './../css/carousel.css'
+
 export default class Carousel {
     constructor(element, options) {
 

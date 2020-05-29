@@ -1,3 +1,5 @@
+import './../css/modal.css'
+
 import content from './content.js'
 import Carousel from './carousel.js'
 import * as templates from './templates.js'
