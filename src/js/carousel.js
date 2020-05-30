@@ -59,14 +59,25 @@ export default class Carousel {
         this.show(this.currentIndex - 1);
     };
 
+    stopVideo() {
+        // prevent youtube video from playing after hiding the object
+        const currentItem = this.items[this.currentIndex];
+        if (currentItem.iframe) currentItem.iframe.src = '';
+    }
+
     show(nextIndex) {
         if (this.items.length < 1)
             return;
+
+        this.stopVideo();
 
         // get elemts and move index
         const currentItem = this.items[this.currentIndex];
         this.currentIndex = this._mapIndex(this.items, nextIndex);
         const nextItem = this.items[this.currentIndex];
+
+        // add src to allow playback of the youtube videos 
+        if (nextItem.iframe) nextItem.iframe.src = nextItem.src;
 
         // show and hide
         currentItem.node.classList.remove('fade-in');
@@ -94,10 +105,10 @@ export default class Carousel {
         // append to DOM and add reference to the list
         this.itemsHTML.insertAdjacentHTML('beforeend', `<div class="carousel-item">${content}</div>`);
         const lastChild = this.itemsHTML.lastElementChild;
-        this.items.push({
+        const index = this.items.push({
             node: lastChild,
-            description: description
-        });
+            description: description,
+        }) - 1;
 
         // fade-out all but first item
         if (this.items.length > 1) {
@@ -109,6 +120,10 @@ export default class Carousel {
         if (type === 'youtube') {
             lastChild.getElementsByClassName('carousel-item-youtube-thumbnail')[0].addEventListener('click', _ => {
                 lastChild.innerHTML = this._createYouTubeVideo(src);
+                // save src of the iframe and the iframe self to easier remove and add the src from the iframe HTML node later on
+                const item = this.items[index];
+                item.iframe = item.node.getElementsByTagName('iframe')[0];
+                item.src = item.iframe.src;
             });
         }
 
@@ -194,7 +209,7 @@ export default class Carousel {
         this.descriptionText.innerHTML = this.items[this.currentIndex].description;
     };
 
-    _toggleNavigationItems(hide){
+    _toggleNavigationItems(hide) {
         this.buttons[0].classList.toggle('hide', hide);
         this.buttons[1].classList.toggle('hide', hide);
         this.navigation?.classList.toggle('hide', hide);

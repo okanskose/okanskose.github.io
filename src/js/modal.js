@@ -10,9 +10,9 @@ export default class Modal {
         this.modal = document.getElementById('modal');
         this.modalContent = document.getElementById('modal-content')
 
-        this.modal.addEventListener('click', this._closeModal);
+        this.modal.addEventListener('click', this._closeModal.bind(this));
         this.modalContent.addEventListener('click', e => e.stopPropagation());
-        document.getElementById('modal-close').addEventListener("click", this._closeModal);
+        document.getElementById('modal-close').addEventListener("click", this._closeModal.bind(this));
 
         this.carousel = new Carousel(this.modalContent.getElementsByClassName('carousel')[0]);
         this.currentProjectId = undefined;
@@ -33,6 +33,7 @@ export default class Modal {
     _closeModal() {
         document.body.classList.remove('block');
         modal.classList.add('hidden');
+        this.carousel.stopVideo();
     }
 
     _openModal() {
