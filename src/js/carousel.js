@@ -22,6 +22,13 @@ export default class Carousel {
             ${this.options.showNav ? `<nav class="carousel-nav hide"></nav>` : ``}
         `;
 
+        // detect touch gesture for sliding through the carousel
+        const mediaSelection = this.carousel.getElementsByClassName('carousel-media-section')[0];
+        mediaSelection.addEventListener("touchstart", this._onTouchStartListener.bind(this), false);
+        mediaSelection.addEventListener("touchmove", this._onTouchMoveListener.bind(this), false);
+        this.initialTouchPositionX = null;
+        this.initialTouchPositionY = null;
+
         // Init some variables
         this.items = [];
         this.currentIndex = 0;
@@ -240,5 +247,36 @@ export default class Carousel {
         else if (-i % max == 0)
             return 0;
         return i;
+    };
+
+    _onTouchStartListener(e) {
+        this.initialTouchPositionX = e.touches[0].clientX;
+        this.initialTouchPositionY = e.touches[0].clientY;
+    };
+
+    _onTouchMoveListener(e) {
+        if (this.initialTouchPositionX === null || this.initialTouchPositionY === null) {
+            return;
+        }
+
+        var posX = e.touches[0].clientX;
+        var posY = e.touches[0].clientY;
+
+        var deltaX = this.initialTouchPositionX - posX;
+        var deltaY = this.initialTouchPositionY - posY;
+
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+            // horizontal slide
+            if (deltaX > 0) {
+                this.showNext();
+            } else {
+                this.showPrevious();
+            }
+        }
+
+        this.initialTouchPositionX = null;
+        this.initialTouchPositionY = null;
+
+        e.preventDefault();
     };
 }
