@@ -43,7 +43,7 @@ export default {
                 {
                     type: 'img',
                     description: 'Inside a Mandelbox',
-                    filename: './media/3d-fractals/inside-a-mandelbox.jpg',
+                    filename: './media/3d-fractals/inside-a-Mandelbox.jpg',
                     isThumbnail: false
                 },
                 {
