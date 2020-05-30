@@ -70,17 +70,25 @@
 }
 
 .carousel-media-section>button {
-    --height: 20%;
-    height: var(--height);
+    height: 100%;
     width: 5%;
     position: absolute;
-    padding: 1%;
-    top: calc(50% - var(--height) / 2);
-    background-color: rgba(0, 0, 0, 0.6);
+    padding: 0;
+    top: 0;
+    background-color: transparent;
     border: none;
     opacity: 0;
-    transition: opacity var(--transition-time) ease;
     margin: 0;
+    box-shadow: none;
+    transition: opacity var(--transition-time) ease;
+}
+
+.carousel-media-section>button:focus {
+    outline: none;
+}
+
+.carousel-media-section>button:focus>svg {
+    outline: -webkit-focus-ring-color auto 1px;
 }
 
 .carousel-media-section:hover>button {
@@ -88,8 +96,10 @@
 }
 
 .carousel-media-section>button>svg {
-    height: 100%;
-    width: 100%;
+    --padding: 20%;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: var(--padding);
+    width: calc(100% - 2 * var(--padding));
 }
 
 .carousel-previous {
